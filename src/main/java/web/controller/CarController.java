@@ -1,12 +1,11 @@
 package web.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import web.service.CarServiceImpl;
 
 @Controller
@@ -20,12 +19,9 @@ public class CarController {
     }
 
     @GetMapping()
-    public String index(Model model) {
-        model.addAttribute("cars",carServiceImpl.cars(5));
-         return "cars/index";
+    public String getCars(@RequestParam(value = "count", defaultValue = "5") int count, Model model) {
+        model.addAttribute("cars", carServiceImpl.cars(count));
+        return "cars";
+
     }
-//    @GetMapping("/{count}")
-//    public String show(@PathVariable("count") int count,Model model){
-//        return null;
-//    }
 }
